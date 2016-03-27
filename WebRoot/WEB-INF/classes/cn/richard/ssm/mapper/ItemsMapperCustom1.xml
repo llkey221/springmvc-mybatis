@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.richard.ssm.mapper.ItemsMapperCustom1">
+
+	<sql id="items_query_where">
+		<where>
+			<if test="itemsCustom!=null">
+				<if test="itemsCustom.name!=null and itemsCustom.name!=''">
+					items.name like '%${itemsCustom.name}%'
+				</if>
+			</if>
+		</where>
+	</sql>
+	<select id="findItemsList" parameterMap="cn.richard.ssm.po.ItemsQueryVo"
+		resultMap="cn.richard.ssm.po.ItemsCustom1" >
+		SELECT * FROM items
+		<if test="_parameter!=null">
+			<include refid="items_query_where"></include>
+		</if>
+	</select>
+</mapper>
