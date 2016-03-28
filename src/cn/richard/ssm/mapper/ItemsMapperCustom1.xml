@@ -11,8 +11,8 @@
 			</if>
 		</where>
 	</sql>
-	<select id="findItemsList" parameterMap="cn.richard.ssm.po.ItemsQueryVo"
-		resultMap="cn.richard.ssm.po.ItemsCustom1" >
+	<select id="findItemsList" parameterType="cn.richard.ssm.po.ItemsQueryVo"
+		resultType="cn.richard.ssm.po.ItemsCustom1" >
 		SELECT * FROM items
 		<if test="_parameter!=null">
 			<include refid="items_query_where"></include>
