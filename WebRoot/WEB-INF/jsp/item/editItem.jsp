@@ -10,8 +10,13 @@
 <title>修改商品信息</title>
 </head>
 <body>
+	<c:forEach items="${allErrors }" var="error">
+		<p>${error.defaultMessage }</p>
+	</c:forEach>
+
 	修改商品信息：
-	<form action="${pageContext.request.contextPath }/editItemSubmit.action" method="post">
+	<form action="${pageContext.request.contextPath }/editItemSubmit.action" method="post" enctype="multipart/form-data">
+		<input type="hidden" value="${itemsCustom.id }" name="id"/>
 		<table width="100%" border="1">
 			<tr>
 				<td>商品名称</td>
@@ -23,7 +28,16 @@
 			</tr>
 			<tr>
 				<td>生产日期</td>
-				<td><input type="text" name="createtime" value='<fmt:formatDate value="${itemsCustom.createtime }"/>'/></td>
+				<td><input type="text" name="createtime" value='<fmt:formatDate value="${itemsCustom.createtime }" pattern="yyyy-MM-dd HH:mm:ss"/>'/></td>
+			</tr>
+			<tr>
+				<td>商品图片</td>
+				<td>
+					<c:if test="${itemsCustom.pic!=null }">
+						<img src="/pic/${itemsCustom.pic }"/>
+					</c:if>
+					<input type="file" name="itemPic"/>
+				</td>
 			</tr>
 			<tr>
 				<td>商品详情</td>

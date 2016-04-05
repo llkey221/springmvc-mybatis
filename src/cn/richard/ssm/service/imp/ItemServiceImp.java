@@ -1,5 +1,6 @@
 package cn.richard.ssm.service.imp;
 
+import java.io.Console;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -33,10 +34,22 @@ public class ItemServiceImp implements ItemService  {
 	public ItemsCustom findItem(Integer id) throws Exception {
 		Items items=itemsMapper.selectByPrimaryKey(id);
 		
-		ItemsCustom itemsCustom=new ItemsCustom();
-		BeanUtils.copyProperties(items, itemsCustom);
+		ItemsCustom itemsCustom=null;
+		if (items != null) {
+			itemsCustom=new ItemsCustom();
+			BeanUtils.copyProperties(items, itemsCustom);
+		}
 		
 		return itemsCustom;
+	}
+
+	@Override
+	public int editItemById(Integer id, ItemsCustom itemsCustom) throws Exception {
+		itemsCustom.setId(id);
+		int count=itemsMapperCustom.updateByPrimaryKeySelective(itemsCustom);
+		System.out.println(count);
+		
+		return count;
 	}
 
 }

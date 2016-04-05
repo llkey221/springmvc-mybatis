@@ -2,16 +2,23 @@ package cn.richard.ssm.po;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class Items {
     private Integer id;
 
+    @Size(min=6,max=12,message="{items.name.length.errors}")
     private String name;
 
+    @NotNull(message="{items.createtime.errors}")
     private Date createtime;
 
     private Float price;
 
     private String detail;
+    
+    private String pic;
 
     public Integer getId() {
         return id;
@@ -52,4 +59,12 @@ public class Items {
     public void setDetail(String detail) {
         this.detail = detail == null ? null : detail.trim();
     }
+
+	public String getPic() {
+		return pic;
+	}
+
+	public void setPic(String pic) {
+		this.pic = pic;
+	}
 }

@@ -16,11 +16,51 @@
 		
 		<context:component-scan base-package="cn.richard.ssm.controller"></context:component-scan>
 		
-		<mvc:annotation-driven></mvc:annotation-driven>
-		
-		
+		<!-- 加载处理器适配器、处理器映射器
+			添加自定义转换器
+			添加校验器
+		 -->
+		<mvc:annotation-driven conversion-service="conversionService"
+		validator="validator" ></mvc:annotation-driven>
+
 		<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 			<property name="suffix" value=".jsp"/>
 			<property name="prefix" value="/WEB-INF/jsp/"/>
 		</bean>
+		<!-- 添加自定义转换器 -->
+		<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+			<property name="converters">
+				<list>
+					<!-- 自定义日期转换器 -->
+					<bean class="cn.richard.ssm.controller.converter.CustomDateConverter"/>
+				</list>
+			</property>
+		</bean>
+		<!-- 添加校验器 -->
+		<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+			<!-- hibernate校验器 -->
+			<property name="providerClass" value="org.hibernate.validator.HibernateValidator"></property>
+			<!-- 指定校验使用的资源文件  -->
+			<property name="validationMessageSource" ref="messageSource"></property>
+		</bean>
+		<bean id="messageSource"
+			class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+			<property name="basenames">
+				<list>
+					<value>classpath:CustomValidationMessages</value>
+				</list>
+			</property>
+			<property name="fileEncodings" value="UTF-8"/>
+			<property name="cacheSeconds" value="120"></property>
+		</bean>
+		<!-- 配置全局异常处理器 -->
+		<bean class="cn.richard.ssm.controller.exception.CustomExceptionResolver"></bean>
+		<!-- 配置文件上传 -->
+		<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+			<property name="maxUploadSize">
+				<value>5242880</value>
+			</property>
+		</bean>
+		
+		
 </beans>

@@ -38,7 +38,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, createtime, price, detail
+    id, name, createtime, price, pic,detail
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.richard.ssm.po.ItemsExample" >
     select

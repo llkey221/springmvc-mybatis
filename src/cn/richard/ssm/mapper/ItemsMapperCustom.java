@@ -7,7 +7,11 @@ import cn.richard.ssm.po.ItemsQueryVo;
 
 import java.util.List;
 
+import com.sun.org.apache.xml.internal.security.Init;
+
 public interface ItemsMapperCustom {
 	//查询商品信息列表
-   public List<ItemsCustom> findItemsList(ItemsQueryVo itemsQueryVo) throws Exception;
+   List<ItemsCustom> findItemsList(ItemsQueryVo itemsQueryVo) throws Exception;
+   
+   int updateByPrimaryKeySelective(ItemsCustom itemsCustom)throws Exception;
 }

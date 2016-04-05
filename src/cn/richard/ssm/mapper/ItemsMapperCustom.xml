@@ -16,4 +16,26 @@
   				<include refid="items_query_where"></include>
   			</where>			
   	</select>
+  	
+  	<update id="updateByPrimaryKeySelective" parameterType="cn.richard.ssm.po.ItemsCustom" >
+  		update Items
+  		<set>
+  			<if test="name != null">
+  				name=#{name,jdbcType=VARCHAR},
+  			</if>
+  			<if test="createtime != null">
+  				createtime=#{createtime,jdbcType=TIMESTAMP},
+  			</if>
+  			<if test="price != null">
+  				price=#{price,jdbcType=REAL},
+  			</if>
+  			<if test="detail != null">
+  				detail=#{detail,jdbcType=VARCHAR},
+  			</if>
+  			<if test="pic!=null">
+  				pic=#{pic}
+  			</if>
+  		</set>
+  		where id=#{id,jdbcType=INTEGER}
+  	</update>
 </mapper>

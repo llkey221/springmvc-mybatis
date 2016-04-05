@@ -15,6 +15,13 @@
 	<table width="100%" border="1">
 		<tr>
 			<td><input type="text" name="itemsCustom.name"/></td>
+			<td>
+				<select name="itemType">
+					<c:forEach items="${itemTypes}" var="type">
+						<option value="${type.key }">${type.value}</option>
+					</c:forEach>
+				</select>
+			</td>
 			<td><input type="submit" value="查询"/></td>
 		</tr>
 	</table>
