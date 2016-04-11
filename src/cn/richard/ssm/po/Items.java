@@ -5,10 +5,12 @@ import java.util.Date;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class Items {
     private Integer id;
 
-    @Size(min=6,max=12,message="{items.name.length.errors}")
+    @Size(min=6,max=25,message="{items.name.length.errors}")
     private String name;
 
     @NotNull(message="{items.createtime.errors}")
