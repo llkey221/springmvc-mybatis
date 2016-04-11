@@ -85,5 +85,15 @@
 			</property>
 		</bean>
 		
-		
+		<!-- 配置处理器拦截器 -->
+		<mvc:interceptors>
+			<mvc:interceptor> 
+				<mvc:mapping path="/**"/>
+					<bean class="cn.richard.ssm.intercepter.LoginIntercepter"/>
+				</mvc:interceptor>
+			<mvc:interceptor> 
+				<mvc:mapping path="/**"/>
+				<bean class="cn.richard.ssm.intercepter.QueryItemsIntercepter"/>
+			</mvc:interceptor>
+		</mvc:interceptors>
 </beans>

@@ -10,6 +10,12 @@
 <title>商品信息列表</title>
 </head>
 <body>
+<p>${username }，
+	<c:if test="${username}!=''">
+		<a href="${pageContext.request.contextPath }/logout.action">退出</a>
+	</c:if>
+</p>
+
 	查询条件：
 	<form action="${pageContext.request.contextPath }/queryItems.action" method="post">
 	<table width="100%" border="1">

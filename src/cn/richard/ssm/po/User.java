@@ -1,8 +1,11 @@
 package cn.richard.ssm.po;
 
+import javax.validation.constraints.Size;
+
 public class User {
     private Integer id;
-
+    
+    @Size(min=6,max=20,message="${user.name.length.errors}")
     private String name;
 
     private Integer age;
