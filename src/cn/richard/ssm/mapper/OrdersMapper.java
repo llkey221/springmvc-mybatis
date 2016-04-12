@@ -16,4 +16,10 @@ public interface OrdersMapper {
     int insertSelective(Orders record);
 
     List<Orders> selectByExample(OrdersExample example);
+
+    Orders selectByPrimaryKey(Integer id);
+
+    int updateByPrimaryKeySelective(Orders record);
+
+    int updateByPrimaryKey(Orders record);
 }

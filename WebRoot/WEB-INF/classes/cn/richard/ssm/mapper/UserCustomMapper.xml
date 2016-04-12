@@ -5,10 +5,10 @@
 		resultType="userCustom">
 			select * from User 
 			<where>
-				<if test="name!=null">
+				<if test="username!=null">
 					username=#{username}
 				</if>
-				<if test="id!=0">
+				<if test="id!=null and id!=0">
 					id=#{id}
 				</if>
 			</where>

@@ -15,11 +15,15 @@ public interface ItemsMapper {
 
     int insertSelective(Items record);
 
+    List<Items> selectByExampleWithBLOBs(ItemsExample example);
+
     List<Items> selectByExample(ItemsExample example);
 
     Items selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(Items record);
+
+    int updateByPrimaryKeyWithBLOBs(Items record);
 
     int updateByPrimaryKey(Items record);
 }

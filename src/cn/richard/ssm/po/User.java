@@ -1,16 +1,20 @@
 package cn.richard.ssm.po;
 
+import java.util.Date;
+
 import javax.validation.constraints.Size;
 
 public class User {
     private Integer id;
     
-    @Size(min=6,max=20,message="${user.name.length.errors}")
-    private String name;
+    @Size(min=2,max=20,message="{user.name.length.errors}")
+    private String username;
 
-    private Integer age;
+    private Date birthday;
 
-    private Integer sex;
+    private String sex;
+
+    private String address;
 
     public Integer getId() {
         return id;
@@ -20,27 +24,35 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
     }
 
-    public Integer getAge() {
-        return age;
+    public Date getBirthday() {
+        return birthday;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 
-    public Integer getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(Integer sex) {
-        this.sex = sex;
+    public void setSex(String sex) {
+        this.sex = sex == null ? null : sex.trim();
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address == null ? null : address.trim();
     }
 }

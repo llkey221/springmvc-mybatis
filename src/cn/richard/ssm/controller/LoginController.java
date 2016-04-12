@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.richard.ssm.controller.exception.CustomException;
@@ -27,10 +28,10 @@ public class LoginController {
 		
 		@RequestMapping(value="/loginSubmit")
 		public String loginSubmit(HttpSession session,String username,String password) throws Exception{
-		/*	UserCustom userByName = userService.getUserByName(name, password);
-			if(userByName==null||userByName.getName()==null){
+			UserCustom userByName = userService.getUserByName(username, password);
+			if(userByName==null||userByName.getUsername()==null){
 				throw new CustomException("用户名或密码不存在");
-			}*/
+			}
 			
 			session.setAttribute("username", username);
 			
@@ -46,8 +47,9 @@ public class LoginController {
 		}
 		
 		@RequestMapping(value="/register")
-		public String register(UserCustom userCustom){
+		public String register(Model model,UserCustom userCustom){
 			
+			model.addAttribute("userCustom", userCustom);
 			return "/register";
 		}
 		
@@ -60,6 +62,10 @@ public class LoginController {
 				model.addAttribute("errors", bindingResult.getAllErrors());
 				
 				return "/register";
+			}
+			
+			if(userCustom==null){
+				throw new CustomException("用户名或密码不能为空");
 			}
 			
 			int result=userService.registerUser(userCustom);

@@ -4,9 +4,12 @@
   <resultMap id="BaseResultMap" type="cn.richard.ssm.po.Items" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
     <result column="price" property="price" jdbcType="REAL" />
-    <result column="detail" property="detail" jdbcType="VARCHAR" />
+    <result column="pic" property="pic" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="cn.richard.ssm.po.Items" extends="BaseResultMap" >
+    <result column="detail" property="detail" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -38,8 +41,27 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, createtime, price, pic,detail
+    id, name, price, pic, createtime
   </sql>
+  <sql id="Blob_Column_List" >
+    detail
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="cn.richard.ssm.po.ItemsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from items
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.richard.ssm.po.ItemsExample" >
     select
     <if test="distinct" >
@@ -54,9 +76,11 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from items
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -71,10 +95,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="cn.richard.ssm.po.Items" >
-    insert into items (id, name, createtime, 
-      price, detail)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
-      #{price,jdbcType=REAL}, #{detail,jdbcType=VARCHAR})
+    insert into items (id, name, price, 
+      pic, createtime, detail
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{price,jdbcType=REAL}, 
+      #{pic,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{detail,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="cn.richard.ssm.po.Items" >
     insert into items
@@ -85,11 +111,14 @@
       <if test="name != null" >
         name,
       </if>
-      <if test="createtime != null" >
-        createtime,
-      </if>
       <if test="price != null" >
         price,
+      </if>
+      <if test="pic != null" >
+        pic,
+      </if>
+      <if test="createtime != null" >
+        createtime,
       </if>
       <if test="detail != null" >
         detail,
@@ -102,14 +131,17 @@
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="createtime != null" >
-        #{createtime,jdbcType=TIMESTAMP},
-      </if>
       <if test="price != null" >
         #{price,jdbcType=REAL},
       </if>
+      <if test="pic != null" >
+        #{pic,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
       <if test="detail != null" >
-        #{detail,jdbcType=VARCHAR},
+        #{detail,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -125,24 +157,36 @@
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="createtime != null" >
-        createtime = #{createtime,jdbcType=TIMESTAMP},
-      </if>
       <if test="price != null" >
         price = #{price,jdbcType=REAL},
       </if>
+      <if test="pic != null" >
+        pic = #{pic,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
       <if test="detail != null" >
-        detail = #{detail,jdbcType=VARCHAR},
+        detail = #{detail,jdbcType=LONGVARCHAR},
       </if>
     </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.richard.ssm.po.Items" >
+    update items
+    set name = #{name,jdbcType=VARCHAR},
+      price = #{price,jdbcType=REAL},
+      pic = #{pic,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      detail = #{detail,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.richard.ssm.po.Items" >
     update items
     set name = #{name,jdbcType=VARCHAR},
-      createtime = #{createtime,jdbcType=TIMESTAMP},
       price = #{price,jdbcType=REAL},
-      detail = #{detail,jdbcType=VARCHAR}
+      pic = #{pic,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

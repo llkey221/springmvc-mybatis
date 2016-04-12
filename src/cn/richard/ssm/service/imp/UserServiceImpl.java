@@ -15,7 +15,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public UserCustom getUserByName(String name, String password) throws Exception {
 		UserCustom userCustom =new UserCustom();
-		userCustom.setName(name);
+		userCustom.setUsername(name);
 		
 		userCustom=userCustomMapper.findUserByNameAndPwd(userCustom);
 		return userCustom;

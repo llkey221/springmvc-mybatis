@@ -3,9 +3,10 @@
 <mapper namespace="cn.richard.ssm.mapper.UserMapper" >
   <resultMap id="BaseResultMap" type="cn.richard.ssm.po.User" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="age" property="age" jdbcType="INTEGER" />
-    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="DATE" />
+    <result column="sex" property="sex" jdbcType="CHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -37,7 +38,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, age, sex
+    id, username, birthday, sex, address
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.richard.ssm.po.UserExample" >
     select
@@ -70,10 +71,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="cn.richard.ssm.po.User" >
-    insert into user (id, name, age, 
-      sex)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, 
-      #{sex,jdbcType=INTEGER})
+    insert into user (id, username, birthday, 
+      sex, address)
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, 
+      #{sex,jdbcType=CHAR}, #{address,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.richard.ssm.po.User" >
     insert into user
@@ -81,28 +82,34 @@
       <if test="id != null" >
         id,
       </if>
-      <if test="name != null" >
-        name,
+      <if test="username != null" >
+        username,
       </if>
-      <if test="age != null" >
-        age,
+      <if test="birthday != null" >
+        birthday,
       </if>
       <if test="sex != null" >
         sex,
+      </if>
+      <if test="address != null" >
+        address,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
       </if>
-      <if test="age != null" >
-        #{age,jdbcType=INTEGER},
+      <if test="birthday != null" >
+        #{birthday,jdbcType=DATE},
       </if>
       <if test="sex != null" >
-        #{sex,jdbcType=INTEGER},
+        #{sex,jdbcType=CHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -115,23 +122,27 @@
   <update id="updateByPrimaryKeySelective" parameterType="cn.richard.ssm.po.User" >
     update user
     <set >
-      <if test="name != null" >
-        name = #{name,jdbcType=VARCHAR},
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
       </if>
-      <if test="age != null" >
-        age = #{age,jdbcType=INTEGER},
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=DATE},
       </if>
       <if test="sex != null" >
-        sex = #{sex,jdbcType=INTEGER},
+        sex = #{sex,jdbcType=CHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.richard.ssm.po.User" >
     update user
-    set name = #{name,jdbcType=VARCHAR},
-      age = #{age,jdbcType=INTEGER},
-      sex = #{sex,jdbcType=INTEGER}
+    set username = #{username,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=DATE},
+      sex = #{sex,jdbcType=CHAR},
+      address = #{address,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
